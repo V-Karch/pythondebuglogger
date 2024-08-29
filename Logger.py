@@ -1,11 +1,10 @@
 class Logger:
-
     defaults: dict[str, str] = {
         "default_notice_color": "\033[38;2;129;255;126m",
         "default_warning_color": "\033[38;2;255;236;51m",
         "default_error_color": "\033[38;2;255;91;91m",
-        "reset_color": "\033[0m"
-    } # Dictionary of default values for logging
+        "reset_color": "\033[0m",
+    }  # Dictionary of default values for logging
 
     maximum_hex: int = 16777215
 
@@ -32,4 +31,36 @@ class Logger:
         return f"\033[38;2;{RGB[0]};{RGB[1]};{RGB[2]}m"
 
     def __init__(self, notice_color=None, warning_color=None, error_color=None) -> None:
-        ...
+        """
+        Accepts a hex input for each optional color
+        if no color is provided, the defaults will be assumed
+
+        Example logger creation:
+
+        logger: Logger = Logger(notice_color=0x00FF00, warning_color=0xFFFF00, error_color=0x0000FF)
+        """
+
+        self.reset_color = Logger.defaults.get("reset_color")
+
+        # Assigning instance variables
+        if notice_color is None:
+            self.notice_color: str = Logger.defaults.get("default_notice_color")
+        else:
+            self.notice_color: str = Logger.rgb_to_escape_sequence(
+                Logger.hex_to_rgb(notice_color)
+            )
+
+        if warning_color is None:
+            self.warning_color: str = Logger.defaults.get("default_warning_color")
+        else:
+            self.warning_color: str = Logger.rgb_to_escape_sequence(
+                Logger.hex_to_rgb(warning_color)
+            )
+
+        if error_color is None:
+            self.error_color: str = Logger.defaults.get("defaults_error_color")
+        else:
+            self.error_color: str = Logger.rgb_to_escape_sequence(
+                Logger.hex_to_rgb(error_color)
+            )
+    
