@@ -1,0 +1,2 @@
+export PYTHONPATH=$(pwd) # Account for import failure
+pytest ./
