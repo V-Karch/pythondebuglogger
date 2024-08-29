@@ -64,3 +64,23 @@ class Logger:
                 Logger.hex_to_rgb(error_color)
             )
     
+    def create_notice(self, message: str) -> str:
+        """Creates a notice message and returns it as a string
+
+        Args:
+            message (str): The notice message
+
+        Returns:
+            str: A string that can be sent to any stdout as a notice
+        """
+        
+        return f"{self.notice_color}[NOTICE] {message}{self.reset_color}"
+    
+    def display_notice(self, message: str) -> None:
+        """Displays a notice, calling Logger().create_notice() on the supplied message
+
+        Args:
+            message (str): The notice message
+        """
+        
+        print(self.create_notice(message))
