@@ -3,6 +3,7 @@ class Logger:
         "default_notice_color": "\033[38;2;129;255;126m",
         "default_warning_color": "\033[38;2;255;236;51m",
         "default_error_color": "\033[38;2;255;91;91m",
+        "default_debug_color": "\033[38;2;173;255;252m",
         "reset_color": "\033[0m",
     }  # Dictionary of default values for logging
 
@@ -40,7 +41,8 @@ class Logger:
         logger: Logger = Logger(notice_color=0x00FF00, warning_color=0xFFFF00, error_color=0x0000FF)
         """
 
-        self.reset_color = Logger.defaults.get("reset_color")
+        self.reset_color: str = Logger.defaults.get("reset_color")
+        self.debug_color: str = Logger.defaults.get("debug_color")
 
         # Assigning instance variables
         if notice_color is None:
@@ -126,3 +128,24 @@ class Logger:
         """
 
         print(self.create_error(message))
+        
+    def create_debug(self, message: str) -> str:
+        """Creates a debug message and returns it as a string
+
+        Args:
+            message (str): The debug message
+
+        Returns:
+            str: A string that can be sent to any stdout as an error
+        """
+        
+        return f"{self.debug_color}[DEBUG] {message}{self.reset_color}"
+    
+    def display_debug(self, message: str) -> None:
+        """Displays a debug message, calling Logger.create_debug() on the supplied message
+
+        Args:
+            message (str): The debug message
+        """
+        
+        print(self.create_debug(message))
