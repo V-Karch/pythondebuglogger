@@ -58,7 +58,7 @@ class Logger:
             )
 
         if error_color is None:
-            self.error_color: str = Logger.defaults.get("defaults_error_color")
+            self.error_color: str = Logger.defaults.get("default_error_color")
         else:
             self.error_color: str = Logger.rgb_to_escape_sequence(
                 Logger.hex_to_rgb(error_color)
