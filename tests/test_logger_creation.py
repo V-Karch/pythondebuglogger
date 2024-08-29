@@ -18,6 +18,15 @@ def test_logger_creation_no_args():
 
 
 def test_logger_creation_with_args():
+    supplied_notice_color: int = 0x00FF00
+    supplied_warning_color: int = 0xFFFF00
+    supplied_error_color: int = 0xFF0000
+
+    logger: Logger = Logger(
+        notice_color=supplied_notice_color,
+        warning_color=supplied_warning_color,
+        error_color=supplied_error_color,
+    )
 
     expected_notice_color: str = "\033[38;2;0;255;0m"
     expected_warning_color: str = "\033[38;2;255;255;0m"
