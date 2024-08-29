@@ -50,7 +50,7 @@ def test_logger_notice_provided_2():
     assert expected_notice_created == actual_notice_created
 
 
-def test_logger_notice_provided_2():
+def test_logger_notice_provided_3():
     supplied_notice_color: int = 0xFFFFFF
 
     logger: Logger = Logger(notice_color=supplied_notice_color)
