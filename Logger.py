@@ -1,9 +1,9 @@
 class Logger:
 
     defaults: dict[str, str] = {
-        "default_notice_color": "\033[38;2;r;g;bm",
-        "default_warning_color": "\033[38;2;r;g;bm",
-        "default_error_color": "\033[38;2;r;g;bm",
+        "default_notice_color": "\033[38;2;129;255;126m",
+        "default_warning_color": "\033[38;2;255;236;51m",
+        "default_error_color": "\033[38;2;255;91;91m",
         "reset_color": "\033[0m"
     } # Dictionary of default values for logging
 
