@@ -31,7 +31,9 @@ class Logger:
     def rgb_to_escape_sequence(RGB: tuple[int, int, int]) -> str:
         return f"\033[38;2;{RGB[0]};{RGB[1]};{RGB[2]}m"
 
-    def __init__(self, notice_color=None, warning_color=None, error_color=None) -> None:
+    def __init__(
+        self, notice_color=None, warning_color=None, error_color=None, debug_color=None
+    ) -> None:
         """
         Accepts a hex input for each optional color
         if no color is provided, the defaults will be assumed
@@ -64,6 +66,13 @@ class Logger:
         else:
             self.error_color: str = Logger.rgb_to_escape_sequence(
                 Logger.hex_to_rgb(error_color)
+            )
+
+        if debug_color is None:
+            self.debug_color: str = Logger.defaults.get("default_debug_color")
+        else:
+            self.debug_color: str = Logger.rgb_to_escape_sequence(
+                Logger.hex_to_rgb(debug_color)
             )
 
     def create_notice(self, message: str) -> str:
@@ -128,7 +137,7 @@ class Logger:
         """
 
         print(self.create_error(message))
-        
+
     def create_debug(self, message: str) -> str:
         """Creates a debug message and returns it as a string
 
@@ -138,14 +147,14 @@ class Logger:
         Returns:
             str: A string that can be sent to any stdout as an error
         """
-        
+
         return f"{self.debug_color}[DEBUG] {message}{self.reset_color}"
-    
+
     def display_debug(self, message: str) -> None:
         """Displays a debug message, calling Logger.create_debug() on the supplied message
 
         Args:
             message (str): The debug message
         """
-        
+
         print(self.create_debug(message))
