@@ -84,3 +84,24 @@ class Logger:
         """
 
         print(self.create_notice(message))
+        
+    def create_warning(self, message: str) -> str:
+        """Creates a warning message and returns it as a string
+
+        Args:
+            message (str): The warning message
+
+        Returns:
+            str: A string that can be sent to any stdout as a notice
+        """
+        
+        return f"{self.warning_color}[WARNING] {message}{self.reset_color}"
+    
+    def display_warning(self, message: str) -> None:
+        """Displays a notice, calling Logger().create_warning() on the supplied message
+
+        Args:
+            message (str): The warning message
+        """
+        
+        print(self.create_warning(message))
