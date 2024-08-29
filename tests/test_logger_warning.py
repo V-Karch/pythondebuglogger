@@ -4,7 +4,9 @@ from Logger import Logger
 def test_logger_warning_defaults_1():
     logger: Logger = Logger()
 
-    expected_warning_created = "\033[38;2;255;236;51m[WARNING] Something Happened\033[0m"
+    expected_warning_created = (
+        "\033[38;2;255;236;51m[WARNING] Something Happened\033[0m"
+    )
     actual_warning_created = logger.create_warning("Something Happened")
 
     assert expected_warning_created == actual_warning_created
