@@ -150,7 +150,14 @@ class Logger:
             str: A string that can be sent to any stdout as an error
         """
 
-        return f"{self.error_color}[ERROR] {message}{self.reset_color}"
+        result: str = self.error_color
+
+        if self.enable_timestamps is True:
+            result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
+
+        result += f"[ERROR] {message}{self.reset_color}" 
+
+        return result
 
     def display_error(self, message: str) -> None:
         """Displays an error, calling Logger.create_error() on the supplied message
