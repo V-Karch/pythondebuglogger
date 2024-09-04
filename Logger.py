@@ -1,3 +1,6 @@
+import datetime
+
+
 class Logger:
     defaults: dict[str, str] = {
         "default_notice_color": "\033[38;2;129;255;126m",
@@ -32,7 +35,12 @@ class Logger:
         return f"\033[38;2;{RGB[0]};{RGB[1]};{RGB[2]}m"
 
     def __init__(
-        self, notice_color=None, warning_color=None, error_color=None, debug_color=None
+        self,
+        notice_color=None,
+        warning_color=None,
+        error_color=None,
+        debug_color=None,
+        enable_timestamps=False,
     ) -> None:
         """
         Accepts a hex input for each optional color
@@ -43,6 +51,7 @@ class Logger:
         logger: Logger = Logger(notice_color=0x00FF00, warning_color=0xFFFF00, error_color=0x0000FF)
         """
 
+        self.enable_timestamps: bool = enable_timestamps
         self.reset_color: str = Logger.defaults.get("reset_color")
         self.debug_color: str = Logger.defaults.get("debug_color")
 
@@ -85,7 +94,14 @@ class Logger:
             str: A string that can be sent to any stdout as a notice
         """
 
-        return f"{self.notice_color}[NOTICE] {message}{self.reset_color}"
+        result: str = self.notice_color + ""
+        
+        if self.enable_timestamps is True:
+            result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
+
+        result += f"[NOTICE] {message}{self.reset_color}"
+
+        return result
 
     def display_notice(self, message: str) -> None:
         """Displays a notice, calling Logger().create_notice() on the supplied message
