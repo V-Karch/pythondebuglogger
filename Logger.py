@@ -177,8 +177,15 @@ class Logger:
         Returns:
             str: A string that can be sent to any stdout as an error
         """
+        
+        result: str = self.debug_color
 
-        return f"{self.debug_color}[DEBUG] {message}{self.reset_color}"
+        if self.enable_timestamps is True:
+            result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
+
+        result += f"[DEBUG] {message}{self.reset_color}"
+
+        return result
 
     def display_debug(self, message: str) -> None:
         """Displays a debug message, calling Logger.create_debug() on the supplied message
