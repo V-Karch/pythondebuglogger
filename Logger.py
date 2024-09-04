@@ -94,7 +94,7 @@ class Logger:
             str: A string that can be sent to any stdout as a notice
         """
 
-        result: str = self.notice_color + ""
+        result: str = self.notice_color
         
         if self.enable_timestamps is True:
             result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
@@ -122,7 +122,14 @@ class Logger:
             str: A string that can be sent to any stdout as a warning
         """
 
-        return f"{self.warning_color}[WARNING] {message}{self.reset_color}"
+        result: str = self.warning_color
+        
+        if self.enable_timestamps is True:
+            result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
+
+        result += f"[WARNING] {message}{self.reset_color}"
+        
+        return result
 
     def display_warning(self, message: str) -> None:
         """Displays a warning, calling Logger().create_warning() on the supplied message
