@@ -2,6 +2,31 @@ import datetime
 
 
 class Logger:
+    """
+    A Logger class for generating colored log messages with optional timestamps.
+
+    This class allows you to create and display log messages categorized as notices, warnings,
+    errors, and debug information. You can customize the colors of these messages using hexadecimal
+    values, or fall back to predefined defaults. The logging methods generate ANSI escape codes to
+    format the text color in terminals that support it.
+
+    Attributes:
+        defaults (dict): A dictionary containing default color values for various log levels.
+        maximum_hex (int): The maximum hexadecimal value allowed for color inputs (0xFFFFFF).
+
+    Methods:
+        hex_to_rgb(hex: int) -> tuple[int, int, int]: Converts a hex color value to an RGB tuple.
+        rgb_to_escape_sequence(RGB: tuple[int, int, int]) -> str: Converts an RGB tuple to an ANSI escape code.
+        create_notice(message: str) -> str: Creates a formatted notice message.
+        display_notice(message: str) -> None: Displays a notice message to stdout.
+        create_warning(message: str) -> str: Creates a formatted warning message.
+        display_warning(message: str) -> None: Displays a warning message to stdout.
+        create_error(message: str) -> str: Creates a formatted error message.
+        display_error(message: str) -> None: Displays an error message to stdout.
+        create_debug(message: str) -> str: Creates a formatted debug message.
+        display_debug(message: str) -> None: Displays a debug message to stdout.
+    """
+
     defaults: dict[str, str] = {
         "default_notice_color": "\033[38;2;129;255;126m",
         "default_warning_color": "\033[38;2;255;236;51m",
@@ -95,7 +120,7 @@ class Logger:
         """
 
         result: str = self.notice_color
-        
+
         if self.enable_timestamps is True:
             result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
 
@@ -123,12 +148,12 @@ class Logger:
         """
 
         result: str = self.warning_color
-        
+
         if self.enable_timestamps is True:
             result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
 
         result += f"[WARNING] {message}{self.reset_color}"
-        
+
         return result
 
     def display_warning(self, message: str) -> None:
@@ -155,7 +180,7 @@ class Logger:
         if self.enable_timestamps is True:
             result += datetime.datetime.now().strftime("[%H:%M:%S - %m/%d/%Y] ")
 
-        result += f"[ERROR] {message}{self.reset_color}" 
+        result += f"[ERROR] {message}{self.reset_color}"
 
         return result
 
@@ -177,7 +202,7 @@ class Logger:
         Returns:
             str: A string that can be sent to any stdout as an error
         """
-        
+
         result: str = self.debug_color
 
         if self.enable_timestamps is True:
